@@ -24,11 +24,13 @@ import org.ros.node.ConnectedNode;
 import org.ros.node.NodeMain;
 import org.ros.node.topic.Subscriber;
 
+import src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController;
 import src.main.java.com.github.hsmrs_gui.project.model.Robot;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.Task;
 import src.main.java.com.github.hsmrs_gui.project.model.TaskListModel;
 import src.main.java.com.github.hsmrs_gui.project.ros.RobotRegistrationListener;
+import src.main.java.com.github.hsmrs_gui.project.ros.SystemLogListener;
 import src.main.java.com.github.hsmrs_gui.project.view.MainFrame;
 
 import java.awt.EventQueue;
@@ -39,6 +41,7 @@ public class GuiNode extends AbstractNodeMain {
 
 	private static Log log;
 	private MessageListener<std_msgs.String> robotRegistrationListener;
+	private MessageListener<std_msgs.String> systemLogListener;
 	
 	
   @Override
@@ -74,7 +77,11 @@ public class GuiNode extends AbstractNodeMain {
             	tlm.addTask(new Task("Go to (x, y)"));
             	tlm.addTask(new Task("Search for sample", sampleRobots, "In progress"));
             	
+            	ConsoleController.getInstance().createConsole(rlm.getRobotNames());
+            	
+            	
             	robotRegistrationListener = new RobotRegistrationListener(connectedNode);
+            	systemLogListener = new SystemLogListener(connectedNode);
             	
             	MainFrame gui = new MainFrame(rlm, tlm);
             	gui.setVisible(true);	
