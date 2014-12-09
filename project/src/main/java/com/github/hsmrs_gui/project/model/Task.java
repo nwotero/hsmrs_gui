@@ -12,7 +12,7 @@ public class Task {
 	public Task(){
 		name = "Idle";
 		owners = new ArrayList<Robot>();
-		status = "-";
+		status = "---";
 	}
 	
 	public Task(String name){

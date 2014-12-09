@@ -33,7 +33,8 @@ public class ConsoleView extends JPanel {
 
 	public ConsoleView() {
 		// setBackground(Color.white);
-		setLayout(new MigLayout("fill", "[]", "[]"));
+		setLayout(new MigLayout("fill, insets 0", "[]", "[]"));
+		setBackground(Color.decode("0XC0BCB6"));
 
 		sourceTabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		output = new JTextArea("");
