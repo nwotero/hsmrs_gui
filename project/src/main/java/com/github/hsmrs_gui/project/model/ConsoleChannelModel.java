@@ -7,6 +7,7 @@ public class ConsoleChannelModel {
 	
 	public ConsoleChannelModel(String name){
 		this.name = name;
+		log = "";
 	}
 	
 	public String getName(){
@@ -14,7 +15,8 @@ public class ConsoleChannelModel {
 	}
 	
 	public void addLogEntry(String logEntry){
-		log += logEntry + ((logEntry.endsWith("\n")) ? ("") : ("\n"));
+		//log += logEntry + ((logEntry.endsWith("\n")) ? ("") : ("\n"));
+		log += logEntry + "<br>";
 	}
 	
 	public String getLog(){

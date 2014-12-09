@@ -25,8 +25,8 @@ Bnd-LastModified: 1418067522000
 Created-By: 1.6.0_33 (Sun Microsystems Inc.)
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.github.rosjava.hsmrs_gui.project
-Import-Package: javax.swing,javax.swing.border,javax.swing.event,net.m
- iginfocom.swing,org.apache.commons.logging;version="[1.1,2)",org.ros.
- message,org.ros.namespace,org.ros.node,org.ros.node.topic,std_msgs;ve
- rsion="[0.5,1)"
+Import-Package: javax.swing,javax.swing.border,javax.swing.event,javax
+ .swing.text,javax.swing.text.html,net.miginfocom.swing,org.apache.com
+ mons.logging;version="[1.1,2)",org.ros.message,org.ros.namespace,org.
+ ros.node,org.ros.node.topic,std_msgs;version="[0.5,1)"
 

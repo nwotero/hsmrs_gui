@@ -12,7 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.JViewport;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
 
 import com.github.hsmrs_gui.project.GuiNode;
 
@@ -41,28 +44,20 @@ public class ConsoleView extends JPanel {
 		cc.setConsoleView(this);
 
 		for (String channelName : cc.getChannelNames()) {
-			JTextArea temp = new JTextArea();
-			temp.setLineWrap(true);
+			JTextPane temp = new JTextPane();
+			temp.setContentType("text/html");
+			temp.setEditable(false);
 			sourceTabbedPane.addTab(channelName, new JScrollPane(temp));
 		}
-
-		// sourceTabbedPane.addTab("All", new JScrollPane(output));
-		// RobotListModel rlm = RobotListModel.getRobotListModel();
-		// for(int i = 0; i < rlm.getSize(); i++){
-		// Robot robot = rlm.getElementAt(i);
-		// String robotName = robot.getName();
-		// JTextArea temp = new JTextArea();
-		// temp.setLineWrap(true);
-		// sourceTabbedPane.addTab(robotName, new JScrollPane(temp));
-		// }
 
 		add(sourceTabbedPane, "grow");
 	}
 
 	public void addChannel(String name) {
-		JTextArea textArea = new JTextArea();
-		textArea.setLineWrap(true);
-		sourceTabbedPane.addTab(name, new JScrollPane(textArea));
+		JTextPane textPane = new JTextPane();
+		textPane.setContentType("text/html");
+		textPane.setEditable(false);
+		sourceTabbedPane.addTab(name, new JScrollPane(textPane));
 	}
 
 	public void removeChannel(String name) {
@@ -76,17 +71,29 @@ public class ConsoleView extends JPanel {
 
 	public void setChannelLogText(String channelName, String logText) {
 		GuiNode.getLog().info("Debug: setChannelLogText " + logText);
-		JTextArea target = extractTextArea(channelName);
+		JTextPane target = extractTextPane(channelName);
 		GuiNode.getLog().info(
 				"Debug: setChannelLogText for: " + target.getText());
-		target.setText(logText);
+		
+		HTMLDocument doc = new HTMLDocument();
+		HTMLEditorKit editorKit = (HTMLEditorKit)target.getEditorKit();
+		try{
+			editorKit.insertHTML(doc, 0, logText, 0, 0, null);
+			target.setDocument(doc);
+		}catch(Exception e)
+		{
+			GuiNode.getLog().info(
+					"Debug: setChannelLogText Failure!");
+		}
+		
+		//target.setText(logText);
 		GuiNode.getLog().info(
 				"Debug: setChannelLogText Success!");
 		return;
 
 	}
 
-	private JTextArea extractTextArea(String channelName) {
+	private JTextPane extractTextPane(String channelName) {
 		for (int i = 0; i < sourceTabbedPane.getTabCount(); i++) {
 			if (sourceTabbedPane.getTitleAt(i).equals(channelName)) {
 				JScrollPane spContainer = (JScrollPane) sourceTabbedPane
@@ -94,8 +101,8 @@ public class ConsoleView extends JPanel {
 				JViewport vContainer = spContainer.getViewport();
 				Component[] comps = vContainer.getComponents();
 				for (int j = 0; j < comps.length; j++) {
-					if (comps[j] instanceof JTextArea) {
-						return ((JTextArea) comps[j]);
+					if (comps[j] instanceof JTextPane) {
+						return ((JTextPane) comps[j]);
 					}
 				}
 			}
