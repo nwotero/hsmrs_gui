@@ -27,13 +27,20 @@ import org.ros.node.topic.Subscriber;
 import src.main.java.com.github.hsmrs_gui.project.model.Robot;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.Task;
+import src.main.java.com.github.hsmrs_gui.project.model.TaskListModel;
+import src.main.java.com.github.hsmrs_gui.project.ros.RobotRegistrationListener;
 import src.main.java.com.github.hsmrs_gui.project.view.MainFrame;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuiNode extends AbstractNodeMain {
 
 	private static Log log;
+	private MessageListener<std_msgs.String> robotRegistrationListener;
+	
+	
   @Override
   public GraphName getDefaultNodeName() {
     return GraphName.of("rosjava/gui_node");
@@ -44,19 +51,33 @@ public class GuiNode extends AbstractNodeMain {
   }
 
   @Override
-  public void onStart(ConnectedNode connectedNode) {
+  public void onStart(final ConnectedNode connectedNode) {
     log = connectedNode.getLog();
 
     EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
             	RobotListModel rlm = RobotListModel.getRobotListModel();
-            	rlm.addRobot(new Robot("Hermes", new Task()));
-            	rlm.addRobot(new Robot("Oryx", new Task()));
-            	rlm.addRobot(new Robot("Husky", new Task()));
-            	rlm.addRobot(new Robot("Aero", new Task()));
-              MainFrame gui = new MainFrame(rlm, rlm);
-              gui.setVisible(true);	
+            	List<Robot> sampleRobots = new ArrayList<Robot>();
+            	sampleRobots.add(new Robot("Hermes", new Task()));
+            	sampleRobots.add(new Robot("Oryx", new Task()));
+            	sampleRobots.add(new Robot("Husky", new Task()));
+            	sampleRobots.add(new Robot("Aero", new Task()));
+            	
+            	rlm.addRobot(sampleRobots.get(0));
+            	rlm.addRobot(sampleRobots.get(1));
+            	rlm.addRobot(sampleRobots.get(2));
+            	rlm.addRobot(sampleRobots.get(3));
+            	
+            	TaskListModel tlm = TaskListModel.getTaskListModel();
+            	tlm.addTask(new Task());
+            	tlm.addTask(new Task("Go to (x, y)"));
+            	tlm.addTask(new Task("Search for sample", sampleRobots, "In progress"));
+            	
+            	robotRegistrationListener = new RobotRegistrationListener(connectedNode);
+            	
+            	MainFrame gui = new MainFrame(rlm, tlm);
+            	gui.setVisible(true);	
             }});
 
     Subscriber<std_msgs.String> subscriber = connectedNode.newSubscriber("display", std_msgs.String._TYPE);

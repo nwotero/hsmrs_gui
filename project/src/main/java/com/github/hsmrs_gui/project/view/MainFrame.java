@@ -33,16 +33,19 @@ import javax.swing.JPanel;
 import javax.swing.ListModel;
 
 import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListPanel;
+import src.main.java.com.github.hsmrs_gui.project.view.task.TaskListPanel;
+import src.main.java.com.github.hsmrs_gui.project.view.feedback.FeedbackPane;
+
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.commons.logging.Log;
 
 import com.github.hsmrs_gui.project.GuiNode;
 
-
 public class MainFrame extends JFrame {
-  JTabbedPane leftPane;
+  TaskListPanel taskPane;
   RobotListPanel robotPane;
+  private FeedbackPane feedbackPane;
   JTabbedPane bottomPane;
   JTabbedPane centerPane;
   JLabel taskList;
@@ -75,32 +78,29 @@ public class MainFrame extends JFrame {
       cp.setBackground(Color.white);
 
       //Task List
-      leftPane = new JTabbedPane();
-      JPanel panel = new JPanel(false);
-      JLabel filler = new JLabel("Task Filler");
-      filler.setHorizontalAlignment(JLabel.CENTER);
-      panel.add(filler);
-      leftPane.addTab("All Tasks", panel);
+      taskPane = new TaskListPanel(taskListModel);
 
       //Robot List
       robotPane = new RobotListPanel(robotListModel);
       
       //Console
-      bottomPane = new JTabbedPane();
-      JPanel panel3 = new JPanel(false);
-      JLabel filler3 = new JLabel("Console Filler");
-      filler3.setHorizontalAlignment(JLabel.CENTER);
-      panel3.add(filler3);
-      bottomPane.addTab("Console Output", panel3);
+      feedbackPane = new FeedbackPane();
+      
+//      bottomPane = new JTabbedPane();
+//      JPanel panel3 = new JPanel(false);
+//      JLabel filler3 = new JLabel("Console Filler");
+//      filler3.setHorizontalAlignment(JLabel.CENTER);
+//      panel3.add(filler3);
+//      bottomPane.addTab("Console Output", panel3);
 
       //Image label
       //imageDisplay = new JLabel();
       //defaultImage = new ImageIcon(getClass().getResource("/com/github/hsmrs_gui/project/resources/wall_e.jpg"));
 
       
-      cp.add(leftPane, "left, push, grow");
+      cp.add(taskPane, "left, push, grow");
       cp.add(robotPane, "right, push, grow, wrap");
-      cp.add(bottomPane, "push, grow, span");
+      cp.add(feedbackPane, "push, grow, span");
       
       pack();
     }

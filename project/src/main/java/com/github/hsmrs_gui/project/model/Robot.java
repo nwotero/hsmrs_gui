@@ -4,6 +4,7 @@ public class Robot {
 
 	private String name;
 	private Task assignedTask;
+	private String status;
 		
 	public Robot(){
 		name = "No name given";
