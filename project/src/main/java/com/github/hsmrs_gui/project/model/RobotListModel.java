@@ -24,16 +24,21 @@ public class RobotListModel extends AbstractListModel{
 	
 	public void addRobot(Robot newRobot){
 		robotList.add(newRobot);
+		int index = robotList.size() - 1;
+		this.fireIntervalAdded(this, index, index);
 	}
 	
 	public Robot removeRobot(Robot targetRobot){
+		int index = robotList.indexOf(targetRobot);
 		robotList.remove(targetRobot);
+		this.fireIntervalRemoved(this, index, index);
 		return targetRobot;
 	}
 	
 	public Robot removeRobot(int index){
 		Robot targetRobot = getElementAt(index);
 		robotList.remove(index);
+		this.fireIntervalRemoved(this, 0, 0);
 		return targetRobot;
 	}
 	

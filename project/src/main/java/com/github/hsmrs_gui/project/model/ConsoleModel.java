@@ -9,14 +9,14 @@ import src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView;
 
 public class ConsoleModel {
 	
-	Map<String, ConsoleChannelModel> channels;
+	ArrayList<ConsoleChannelModel> channels;
 	
 	public ConsoleModel(){
-		this.channels = new HashMap<String, ConsoleChannelModel>();
+		this.channels = new ArrayList<ConsoleChannelModel>();
 		ConsoleChannelModel ccmAll = new ConsoleChannelModel("All");
 		ConsoleChannelModel ccmSystem = new ConsoleChannelModel("System");
-		channels.put("All", ccmAll);
-		channels.put("System", ccmSystem);
+		channels.add(ccmAll);
+		channels.add(ccmSystem);
 	}
 	
 	public ConsoleModel(List<String> channelNames){
@@ -27,16 +27,17 @@ public class ConsoleModel {
 	}
 	
 	public void addChannel(String name){
-		this.channels.put(name, new ConsoleChannelModel(name));
+		this.channels.add(new ConsoleChannelModel(name));
 	}
 	
 	public void removeChannel(String name){
-		channels.remove(name);
+		ConsoleChannelModel ccm = getChannel(name);
+		channels.remove(ccm);
 	}
 	
 	public void addLog(String sender, long timestamp, String text){
-		ConsoleChannelModel ccmAll = channels.get("All");
-		ConsoleChannelModel ccmSender = channels.get(sender);
+		ConsoleChannelModel ccmAll = getChannel("All");
+		ConsoleChannelModel ccmSender = getChannel(sender);
 		
 		ccmAll.addLogEntry("<b>[" + String.valueOf(timestamp) + "] "
 				+ sender + ": </b>" + text);
@@ -46,10 +47,23 @@ public class ConsoleModel {
 	}
 
 	public String getLogFor(String channelName) {
-		return channels.get(channelName).getLog();
+		return getChannel(channelName).getLog();
+	}
+	
+	public ConsoleChannelModel getChannel(String channelName){
+		for (ConsoleChannelModel ccm : channels){
+			if (ccm.getName().equals(channelName)){
+				return ccm;
+			}
+		}
+		return null;
 	}
 
 	public List<String> getChannelNames() {
-		return new ArrayList<String>(channels.keySet());
+		ArrayList<String> rtnList = new ArrayList<String>();
+		for (ConsoleChannelModel ccm : channels){
+			rtnList.add(ccm.getName());
+		}
+		return rtnList;
 	}
 }

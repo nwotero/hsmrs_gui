@@ -14,6 +14,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JViewport;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -24,7 +26,7 @@ import src.main.java.com.github.hsmrs_gui.project.model.Robot;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
 import net.miginfocom.swing.MigLayout;
 
-public class ConsoleView extends JPanel {
+public class ConsoleView extends JPanel implements ListDataListener{
 
 	private JTabbedPane sourceTabbedPane;
 	private JTextArea output;
@@ -51,6 +53,7 @@ public class ConsoleView extends JPanel {
 			sourceTabbedPane.addTab(channelName, new JScrollPane(temp));
 		}
 
+		RobotListModel.getRobotListModel().addListDataListener(this);
 		add(sourceTabbedPane, "grow");
 	}
 
@@ -68,6 +71,10 @@ public class ConsoleView extends JPanel {
 				return;
 			}
 		}
+	}
+	
+	public void removeChannel(int index) {
+		sourceTabbedPane.remove(index + 2);
 	}
 
 	public void setChannelLogText(String channelName, String logText) {
@@ -109,5 +116,27 @@ public class ConsoleView extends JPanel {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void contentsChanged(ListDataEvent e) {
+		//The console does not care if the contents are changed
+		
+	}
+
+	@Override
+	public void intervalAdded(ListDataEvent e) {
+		String newRobotName = ((Robot)
+				((RobotListModel)
+						e.getSource()).getElementAt(e.getIndex0())).getName();
+		addChannel(newRobotName);
+	}
+
+	@Override
+	public void intervalRemoved(ListDataEvent e) {
+		//String rmRobotName = ((Robot)
+		//		((RobotListModel)
+		//				e.getSource()).getElementAt(e.getIndex0())).getName();
+		removeChannel(e.getIndex0());
 	}
 }

@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,10 +33,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.ListModel;
 
-import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListPanel;
+import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView;
+import src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.SAPanel;
 import src.main.java.com.github.hsmrs_gui.project.view.task.TaskListPanel;
 import src.main.java.com.github.hsmrs_gui.project.view.feedback.FeedbackPane;
-
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.commons.logging.Log;
@@ -43,19 +44,20 @@ import org.apache.commons.logging.Log;
 import com.github.hsmrs_gui.project.GuiNode;
 
 public class MainFrame extends JFrame {
-  TaskListPanel taskPane;
-  RobotListPanel robotPane;
-  private FeedbackPane feedbackPane;
-  JTabbedPane bottomPane;
-  JTabbedPane centerPane;
-  JLabel taskList;
-  JLabel rightList;
-  JLabel console;
-  JLabel imageDisplay;
-  ImageIcon defaultImage;
-  ListModel robotListModel;
-  ListModel taskListModel;
-  Log log;
+	private TaskListPanel taskPane;
+	private RobotListView robotPane;
+	private FeedbackPane feedbackPane;
+	private JTabbedPane bottomPane;
+	private JTabbedPane centerPane;
+	private JLabel taskList;
+	private JLabel rightList;
+	private JLabel console;
+	private JLabel imageDisplay;
+	private ImageIcon defaultImage;
+	private ListModel robotListModel;
+	private ListModel taskListModel;
+	private SAPanel situAwareView;
+	private Log log;
 
   	public MainFrame(ListModel roboListModel, ListModel taskListModel) {
   		this.robotListModel = roboListModel;
@@ -73,15 +75,19 @@ public class MainFrame extends JFrame {
 
     public void setup(){
       Container cp = this.getContentPane(); 
-      cp.setLayout(new MigLayout("insets 0", "[]push[200px]", "[75%]0[25%]"));
+      cp.setLayout(new MigLayout("insets 0", "[20%]0[60%]0[20%]", "[75%]0[25%]"));
       //cp.setLayout(new BorderLayout());
       cp.setBackground(Color.white);
 
       //Task List
       taskPane = new TaskListPanel(taskListModel);
+      //taskPane.setMaximumSize(new Dimension(500, 200));
+      
+      //Situational Awareness View
+      situAwareView = new SAPanel();
 
       //Robot List
-      robotPane = new RobotListPanel(robotListModel);
+      robotPane = new RobotListView(robotListModel);
       
       //Console
       feedbackPane = new FeedbackPane();
@@ -98,9 +104,10 @@ public class MainFrame extends JFrame {
       //defaultImage = new ImageIcon(getClass().getResource("/com/github/hsmrs_gui/project/resources/wall_e.jpg"));
 
       
-      cp.add(taskPane, "left, push, grow");
+      cp.add(taskPane, "left, grow");
+      cp.add(situAwareView, "left, push, grow");
       cp.add(robotPane, "right, push, grow, wrap");
-      cp.add(feedbackPane, "push, grow, span");
+      cp.add(feedbackPane, "push, grow, span 3"); 
       
       pack();
     }

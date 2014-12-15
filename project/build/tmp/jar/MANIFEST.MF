@@ -3,30 +3,35 @@ Export-Package: com.github.hsmrs_gui.project;version="0.1.0";uses:="or
  g.apache.commons.logging,org.ros.namespace,org.ros.node",src.main.jav
  a.com.github.hsmrs_gui.project.controller;version="0.1.0";uses:="src.
  main.java.com.github.hsmrs_gui.project.model,src.main.java.com.github
- .hsmrs_gui.project.view.feedback",src.main.java.com.github.hsmrs_gui.
- project.model;version="0.1.0";uses:="javax.swing",src.main.java.com.g
- ithub.hsmrs_gui.project.ros;version="0.1.0";uses:="org.ros.message,or
- g.ros.node,std_msgs",src.main.java.com.github.hsmrs_gui.project.view;
- version="0.1.0";uses:="javax.swing",src.main.java.com.github.hsmrs_gu
- i.project.view.buttons;version="0.1.0";uses:="javax.swing",src.main.j
- ava.com.github.hsmrs_gui.project.view.feedback;version="0.1.0";uses:=
- "javax.swing",src.main.java.com.github.hsmrs_gui.project.view.list;ve
- rsion="0.1.0";uses:="javax.swing,javax.swing.event",src.main.java.com
- .github.hsmrs_gui.project.view.robot;version="0.1.0";uses:="javax.swi
- ng,src.main.java.com.github.hsmrs_gui.project.model,src.main.java.com
- .github.hsmrs_gui.project.view.list",src.main.java.com.github.hsmrs_g
- ui.project.view.task;version="0.1.0";uses:="javax.swing,src.main.java
- .com.github.hsmrs_gui.project.model,src.main.java.com.github.hsmrs_gu
- i.project.view.list"
+ .hsmrs_gui.project.view.feedback,src.main.java.com.github.hsmrs_gui.p
+ roject.view.situational_awareness",src.main.java.com.github.hsmrs_gui
+ .project.model;version="0.1.0";uses:="javax.swing",src.main.java.com.
+ github.hsmrs_gui.project.ros;version="0.1.0";uses:="org.ros.message,o
+ rg.ros.node,sensor_msgs,std_msgs",src.main.java.com.github.hsmrs_gui.
+ project.util;version="0.1.0",src.main.java.com.github.hsmrs_gui.proje
+ ct.view;version="0.1.0";uses:="javax.swing",src.main.java.com.github.
+ hsmrs_gui.project.view.buttons;version="0.1.0";uses:="javax.swing",sr
+ c.main.java.com.github.hsmrs_gui.project.view.feedback;version="0.1.0
+ ";uses:="javax.swing,javax.swing.event",src.main.java.com.github.hsmr
+ s_gui.project.view.list;version="0.1.0";uses:="javax.swing,javax.swin
+ g.event",src.main.java.com.github.hsmrs_gui.project.view.robot;versio
+ n="0.1.0";uses:="javax.swing,src.main.java.com.github.hsmrs_gui.proje
+ ct.model,src.main.java.com.github.hsmrs_gui.project.view.list",src.ma
+ in.java.com.github.hsmrs_gui.project.view.situational_awareness;versi
+ on="0.1.0";uses:="javax.swing",src.main.java.com.github.hsmrs_gui.pro
+ ject.view.task;version="0.1.0";uses:="javax.swing,src.main.java.com.g
+ ithub.hsmrs_gui.project.model,src.main.java.com.github.hsmrs_gui.proj
+ ect.view.list"
 Bundle-Version: 0.1.0
 Tool: Bnd-2.1.0.20130426-122213
 Bundle-Name: project
 Bnd-LastModified: 1418067522000
 Created-By: 1.6.0_33 (Sun Microsystems Inc.)
 Bundle-ManifestVersion: 2
-Bundle-SymbolicName: com.github.rosjava.hsmrs_gui.project
+Bundle-SymbolicName: org.ros.rosjava_core.project
 Import-Package: javax.swing,javax.swing.border,javax.swing.event,javax
  .swing.text,javax.swing.text.html,net.miginfocom.swing,org.apache.com
- mons.logging;version="[1.1,2)",org.ros.message,org.ros.namespace,org.
- ros.node,org.ros.node.topic,std_msgs;version="[0.5,1)"
+ mons.logging;version="[1.1,2)",org.jboss.netty.buffer;version="[3.5,4
+ )",org.ros.message,org.ros.namespace,org.ros.node,org.ros.node.topic,
+ sensor_msgs;version="[1.10,2)",std_msgs;version="[0.5,1)"
 

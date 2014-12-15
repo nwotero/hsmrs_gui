@@ -29,6 +29,7 @@ import src.main.java.com.github.hsmrs_gui.project.model.Robot;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.Task;
 import src.main.java.com.github.hsmrs_gui.project.model.TaskListModel;
+import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.RobotRegistrationListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.SystemLogListener;
 import src.main.java.com.github.hsmrs_gui.project.view.MainFrame;
@@ -42,6 +43,7 @@ public class GuiNode extends AbstractNodeMain {
 	private static Log log;
 	private MessageListener<std_msgs.String> robotRegistrationListener;
 	private MessageListener<std_msgs.String> systemLogListener;
+	private MessageListener<sensor_msgs.Image> imageListener;
 	
 	
   @Override
@@ -82,6 +84,7 @@ public class GuiNode extends AbstractNodeMain {
             	
             	robotRegistrationListener = new RobotRegistrationListener(connectedNode);
             	systemLogListener = new SystemLogListener(connectedNode);
+            	imageListener = new ImageListener(connectedNode);
             	
             	MainFrame gui = new MainFrame(rlm, tlm);
             	gui.setVisible(true);	

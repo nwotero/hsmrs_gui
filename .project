@@ -19,4 +19,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>classes</name>
+			<type>2</type>
+			<location>/home/nick/rosjava/src/rosjava_messages/sensor_msgs/build/classes</location>
+		</link>
+	</linkedResources>
 </projectDescription>
