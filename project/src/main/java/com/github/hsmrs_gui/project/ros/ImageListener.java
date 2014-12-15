@@ -55,6 +55,10 @@ public class ImageListener implements MessageListener<sensor_msgs.Image> {
 		// videoSourceSelector.getSelectedItem())) {
 		// videoDisplayPanel.show(cvImage.getBufferedImage())
 		BufferedImage buffImg = messageToBufferedImage(img);
+		if (buffImg == null){
+			GuiNode.getLog().info("Bad image read");
+			return;
+		}
 		VideoController.getInstance().receiveNewImage(cameraName, buffImg);
 		// System.out.println("Time To Display: " +
 		// (System.currentTimeMillis()-time));
@@ -101,9 +105,6 @@ public class ImageListener implements MessageListener<sensor_msgs.Image> {
 		     pixels[i] = data.readByte();
 		     i++;
 		 }
-		 
-		 System.out.println(imageSize);
-		 System.out.println(i);
 		 
 		 BufferedImage readImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		 WritableRaster raster = readImage.getRaster();

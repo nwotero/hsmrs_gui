@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.ListModel;
 
 import src.main.java.com.github.hsmrs_gui.project.model.Robot;
+import src.main.java.com.github.hsmrs_gui.project.util.Colors;
 import src.main.java.com.github.hsmrs_gui.project.view.list.SRList;
 import net.miginfocom.swing.MigLayout;
 
@@ -20,7 +21,7 @@ public class RobotListView extends JPanel{
 	
 	public RobotListView(ListModel listModel) {
 		lblTitle = new JLabel("Robot List", JLabel.CENTER);
-		lblTitle.setBackground(Color.decode("0XC0BCB6"));
+		lblTitle.setBackground(Colors.bannerColor);
 		lblTitle.setOpaque(true);
 		lblTitle.setFont(new Font(lblTitle.getFont().getName(), Font.PLAIN, 24));
 		

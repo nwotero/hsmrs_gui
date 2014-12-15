@@ -35,6 +35,8 @@ public class VideoController {
 //		else{
 //			imgView.setImage(img);
 //		}
+		if (imgView != null){
 		imgView.setImage(img);
+		}
 	}
 }

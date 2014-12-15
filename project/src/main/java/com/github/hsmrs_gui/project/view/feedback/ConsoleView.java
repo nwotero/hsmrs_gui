@@ -2,6 +2,8 @@ package src.main.java.com.github.hsmrs_gui.project.view.feedback;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +28,8 @@ import src.main.java.com.github.hsmrs_gui.project.model.Robot;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
 import net.miginfocom.swing.MigLayout;
 
-public class ConsoleView extends JPanel implements ListDataListener{
+public class ConsoleView extends JPanel implements 
+ListDataListener, AdjustmentListener{
 
 	private JTabbedPane sourceTabbedPane;
 	private JTextArea output;
@@ -61,7 +64,9 @@ public class ConsoleView extends JPanel implements ListDataListener{
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
 		textPane.setEditable(false);
-		sourceTabbedPane.addTab(name, new JScrollPane(textPane));
+		JScrollPane sPane = new JScrollPane(textPane);
+		sPane.getVerticalScrollBar().addAdjustmentListener(this);  
+		sourceTabbedPane.addTab(name, sPane);
 	}
 
 	public void removeChannel(String name) {
@@ -138,5 +143,10 @@ public class ConsoleView extends JPanel implements ListDataListener{
 		//		((RobotListModel)
 		//				e.getSource()).getElementAt(e.getIndex0())).getName();
 		removeChannel(e.getIndex0());
+	}
+
+	@Override
+	public void adjustmentValueChanged(AdjustmentEvent e) {
+		e.getAdjustable().setValue(e.getAdjustable().getMaximum());  
 	}
 }
